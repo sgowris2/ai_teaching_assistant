@@ -13,25 +13,21 @@ if __name__ == '__main__':
                              temperature=0.1,
                              top_k=5,
                              top_p=0.5)
-    upload_file('../data/english.mp3')
-
-    result_file_content = {
-        'prompt_template': '',
-        'curriculum_context': '',
-        'pedagogy_context': '',
-        'training_context': '',
-        'predictions': []
-    }
+    upload_file('../data/hindi.mp3')
 
     try:
         prompt = create_prompt(grade=4,
-                               subject='english',
-                               topic='speaking',
+                               subject='hindi',
+                               topic='nouns',
                                state='KA',
                                board='karnataka_state',
                                district='BLRURBAN',
                                block='BLRURBAN-NORTH')
 
+        result_file_content = {
+            'prompt': prompt,
+            'predictions': []
+        }
         result = model.generate_content(prompt)
         result_dict = json.loads(result.text)
         results.append(result_dict)
