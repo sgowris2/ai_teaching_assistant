@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-from gemini_api_methods import initialize_model, upload_files
+from gemini_api_methods import initialize_model, upload_all_files, upload_file
 from prompt_generation_methods import create_prompt
 
 if __name__ == '__main__':
@@ -10,10 +10,10 @@ if __name__ == '__main__':
     results = []
 
     model = initialize_model(name='gemini-2.0-flash',
-                             temperature=0,
+                             temperature=0.1,
                              top_k=5,
                              top_p=0.5)
-    upload_files()
+    upload_file('../data/english.mp3')
 
     result_file_content = {
         'prompt_template': '',
@@ -24,9 +24,9 @@ if __name__ == '__main__':
     }
 
     try:
-        prompt = create_prompt(grade=7,
-                               subject='science',
-                               topic='magnetism',
+        prompt = create_prompt(grade=4,
+                               subject='english',
+                               topic='speaking',
                                state='KA',
                                board='karnataka_state',
                                district='BLRURBAN',

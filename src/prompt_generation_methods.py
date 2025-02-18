@@ -16,10 +16,10 @@ def create_prompt(grade: int, subject: str, topic: str, state: str, board: str, 
     Training Guidelines: {training_guidelines}
     
     Output JSON Structure:
-    {
+    {{
         "positive_aspects": <bullet points with specific things that were done well by the teacher in the lesson with examples from the audio>,
         "areas_of_improvement": <bullet points with specific things that could be improved by the teacher with examples from the audio>
-    }        
+    }}        
     '''
 
     curriculum_context = _get_curriculum(state=state, board=board, grade=grade, subject=subject, topic=topic),

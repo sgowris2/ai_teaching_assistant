@@ -26,9 +26,18 @@ def initialize_model(name='gemini-1.5-pro',
     return genai_model
 
 
-def upload_files(directory='../data'):
-    files_to_upload = [{'name': x.replace('.wav', ''), "path": os.path.join(directory, x)} for x in
-                       os.listdir(directory) if x.endswith('.wav')]
+def upload_file(filepath: str):
+    uploaded_files = list(genai.list_files())
+    uploaded_filenames = [x.display_name for x in uploaded_files]
+    name = os.path.basename(filepath).replace('.mp3', '')
+    if name not in uploaded_filenames:
+        genai.upload_file(filepath, name=name, display_name=name)
+        print('Uploaded File: {}'.format(name))
+
+
+def upload_all_files(directory='../data'):
+    files_to_upload = [{'name': x.replace('.mp3', ''), "path": os.path.join(directory, x)} for x in
+                       os.listdir(directory) if x.endswith('.mp3')]
     uploaded_files = list(genai.list_files())
     uploaded_filenames = [x.display_name for x in uploaded_files]
     print('To upload: {} files'.format(len([x['name'] for x in files_to_upload if x['name'] not in uploaded_filenames])))
