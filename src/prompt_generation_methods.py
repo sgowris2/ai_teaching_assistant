@@ -60,8 +60,8 @@ def create_analysis_prompt(grade: int, subject: str, topic: str, state: str, boa
             "list_of_guidelines_exhibited": [list of guidelines exhibited by the teacher during the class],
             "list_of_all_guidelines": [list of all guidelines recommended in the given teaching guidelines list],
             "list_of_excellent_guidelines": [list of guidelines followed by the teacher consistently in the lesson],
-            "number_of_good_guidelines": [list of guidelines exhibited once or twice in the lesson but could be more consistently exhibited],
-            "number_of_poor_guidelines": [list of guidelines exhibited not exhibited or exhibited poorly by the teacher in the lesson],
+            "list_of_good_guidelines": [list of guidelines exhibited once or twice in the lesson but could be more consistently exhibited],
+            "list_of_poor_guidelines": [list of guidelines exhibited not exhibited or exhibited poorly by the teacher in the lesson],
         }}
     }}        
     '''
@@ -86,8 +86,10 @@ def _get_lesson_plan(state: str, board: str, grade: int, subject: str, topic: st
         with open('../data/lesson_plans.json', 'r') as c:
             lesson_plans = json.load(c)
             if not lesson_plans:
-                raise Exception('Key "{}" not found'.format(lesson_key))
-        description = lesson_plans.get(lesson_key, '')
+                raise Exception('No lesson plans found')
+        description = lesson_plans.get(lesson_key, None)
+        if description is None:
+            raise Exception('Key "{}" not found'.format(lesson_key))
         return description
     except Exception as e:
         print('WARNING: Could not retrieve curriculum - {}'.format(e.__traceback__))
