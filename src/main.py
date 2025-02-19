@@ -1,7 +1,9 @@
 import json
 from datetime import datetime
+from pprint import pprint
 
 from gemini_api_methods import initialize_model, upload_all_files, upload_file
+from metrics import get_dashboard_metrics
 from prompt_generation_methods import create_analysis_prompt
 
 if __name__ == '__main__':
@@ -11,7 +13,7 @@ if __name__ == '__main__':
     # audio_file, grade, subject, topic, state, board, district, block = ('../data/english.mp3', 3, 'english', 'speaking', 'TN', 'TNSB', 'Chennai', 'Adyar')
     audio_file, grade, subject, topic, state, board, district, block = ('../data/economics.mp3', 8, 'economics', 'consumer_literacy', 'DEL', 'CBSE', 'New Delhi', 'Saket')
 
-    output_filepath = '../output/{}.json'.format(datetime.strftime(datetime.now(), format('%d%b-%H%M')))
+    output_filepath = '../output/{}-{}.json'.format(datetime.strftime(datetime.now(), format('%d%b-%H%M')), subject)
 
     model = initialize_model(name='gemini-2.0-flash',
                              temperature=0.1,
@@ -35,8 +37,12 @@ if __name__ == '__main__':
         result = model.generate_content(prompt)
         result_dict = json.loads(result.text)
         result_file_content['predictions'] = result_dict
-        print('\n{}\n'.format(result_dict))
+        pprint('\n{}\n'.format(result_dict))
         with open(output_filepath, 'w') as f:
             json.dump(result_file_content, f)
+
+        stats = get_dashboard_metrics(output_filepath)
+        pprint(stats)
+
     except Exception as e:
         print('****************\nException:\n{}\n***************\n'.format(e, e.__traceback__))

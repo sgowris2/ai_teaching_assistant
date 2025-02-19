@@ -1,4 +1,5 @@
 import json
+from pprint import pprint
 import matplotlib.pyplot as plt
 
 
@@ -10,7 +11,7 @@ def get_dashboard_metrics(result_filepath: str):
     pedagogy_score, pedagogy_strengths, pedagogy_areas_of_improvement \
         = _calculate_pedagogy_score(results['pedagogy_metrics'])
 
-    lesson_completion_score, lesson_quality_score, missed_topics \
+    topics_covered, total_no_of_topics, lesson_quality_score, missed_topics \
         = _calculate_lesson_plan_completion(results['lesson_plan_metrics'])
 
     teaching_guidelines_score, teaching_guidelines_strengths, teaching_guidelines_areas_of_improvement, teaching_guidelines_missed \
@@ -20,14 +21,15 @@ def get_dashboard_metrics(result_filepath: str):
         "pedagogy_score": pedagogy_score,
         "pedagogy_strengths": pedagogy_strengths,
         "pedagogy_areas_of_improvements": pedagogy_areas_of_improvement,
-        "lesson_completeness": lesson_completion_score,
+        "no_topics_covered": topics_covered,
+        "total_no_topics": total_no_of_topics,
         "missed_topics": missed_topics,
         "lesson_quality_score": lesson_quality_score,
         "teaching_guidelines_score": teaching_guidelines_score,
         "teaching_guidelines_strengths": teaching_guidelines_strengths,
         "teaching_guidelines_areas_of_improvement": teaching_guidelines_areas_of_improvement,
         "teaching_guidelines_missed": teaching_guidelines_missed,
-        "overall_score": round((pedagogy_score + (2 * lesson_quality_score) + teaching_guidelines_score) / 4, 0)
+        "overall_score": round(10 * ((pedagogy_score + lesson_quality_score + teaching_guidelines_score) / 3) ** 0.5, 0)
     }
 
     return metrics
@@ -53,23 +55,39 @@ def _calculate_pedagogy_score(metrics: dict):
 
 def _calculate_lesson_plan_completion(metrics: dict):
 
-    completeness = round(100 * len(metrics['list_of_topics_covered']) / len(metrics['list_of_all_topics']), 0)
-    quality = min(round(100 * ((len(metrics['list_of_excellent_topics']) * 3) +
-                                            (len(metrics['list_of_good_topics']) * 2) +
-                                            (len(metrics['list_of_poor_topics']))) / (len(metrics['list_of_all_topics']) * 3), 0) + 5, 100)
-    missed_topics = [x for x in metrics['list_of_all_topics'] if x not in metrics['list_of_topics_covered']]
-    return completeness, quality, missed_topics
+    topics_covered = metrics['list_of_topics_covered']
+    all_topics = metrics['list_of_all_topics']
+    excellent_topics = metrics['list_of_excellent_topics']
+    good_topics = metrics['list_of_good_topics']
+    poor_topics = metrics['list_of_poor_topics']
+
+    no_of_topics = len(all_topics)
+    weighted_score = (len(excellent_topics) * 3) + (len(good_topics) * 2) + len(poor_topics)
+    highest_score = 3 * no_of_topics
+    quality = round(((100 * (weighted_score / highest_score)) ** 0.5) * 10, 0)
+
+    missed_topics = [x for x in all_topics if x not in topics_covered]
+
+    return len(topics_covered), len(all_topics), quality, missed_topics
 
 
 def _calculate_teaching_guidelines_score(metrics: dict):
-    score = min(round(100 * ((len(metrics['list_of_excellent_guidelines']) * 3) +
-                                                 (len(metrics['list_of_good_guidelines']) * 2) +
-                                                 (len(metrics['list_of_poor_guidelines']))) / (
-                                                  len(metrics['list_of_all_guidelines']) * 3), 0) + 25, 100)
-    missed_guidelines = [x for x in metrics['list_of_all_guidelines'] if
-                                 x not in metrics['list_of_guidelines_exhibited']]
-    strengths = metrics['list_of_excellent_guidelines']
-    improvement_areas = metrics['list_of_poor_guidelines']
+
+    excellent_guidelines = metrics['list_of_excellent_guidelines']
+    good_guidelines = metrics['list_of_good_guidelines']
+    poor_guidelines = metrics['list_of_poor_guidelines']
+    all_guidelines = metrics['list_of_all_guidelines']
+
+    weighted_score = (len(excellent_guidelines) * 3) + (len(good_guidelines) * 2) + len(poor_guidelines)
+    highest_score = 3 * len(all_guidelines)
+
+    score = round(((100 * (weighted_score / highest_score)) ** 0.5) * 10, 0)
+
+    exhibited_guidelines = metrics['list_of_guidelines_exhibited']
+    missed_guidelines = [x for x in all_guidelines if
+                         x not in exhibited_guidelines]
+    strengths = excellent_guidelines
+    improvement_areas = poor_guidelines
 
     return score, strengths, improvement_areas, missed_guidelines
 
@@ -77,4 +95,4 @@ def _calculate_teaching_guidelines_score(metrics: dict):
 
 if __name__ == '__main__':
 
-    print(get_dashboard_metrics('../output/19Feb-1215.json'))
+    pprint(get_dashboard_metrics('../output/19Feb-1949-economics.json'))
