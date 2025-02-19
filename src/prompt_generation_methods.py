@@ -79,6 +79,29 @@ def create_analysis_prompt(grade: int, subject: str, topic: str, state: str, boa
 
     return prompt
 
+def create_postprocessing_prompt(result_dict: dict):
+
+    template = '''
+    1. Take the following Analysis_JSON below that is structured output of an audio analysis of classroom teaching for a 
+    teacher's lesson, and extract no more than 2 actionable suggestions for the teacher. 
+    2. Make sure that the suggestions are made after considering all the points made in the analysis JSON.
+    3. Be very specific with the suggestion. For example, if there is a suggestion to add more examples in the lesson, 
+    provide an actual example that can be immediately used. Or if there is a suggestion to ask a question during the 
+    lesson, then give an example of that question.
+    4. Return the output in a structured JSON like this:
+    {{
+        "suggestions": [
+            {{
+                "title": <suggestion title that is no more than 6-10 words long>,
+                "description": <suggestion detail that is no more than 500 characters long>
+            }}
+        ]
+    }}
+    
+    Analysis_JSON:
+    {result_dict}
+    '''
+    return template.format(result_dict=result_dict)
 
 def _get_lesson_plan(state: str, board: str, grade: int, subject: str, topic: str):
     lesson_key = '-'.join([state, board, str(grade), subject, topic])
