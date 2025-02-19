@@ -1,65 +1,103 @@
-def create_prompt(grade: int, subject: str, topic: str, state: str, board: str, district: str, block: str):
+import json
+
+
+def create_analysis_prompt(grade: int, subject: str, topic: str, state: str, board: str, district: str, block: str):
 
     template = '''
     You are a teacher's helpful assistant that listens to a teacher delivering a lesson to a classroom through an audio 
     recording and gives helpful suggestions of how the teacher has performed in the lesson based on the requirements of 
-    pedagogy, curriculum, other guidelines given to the teacher during training.
+    pedagogy, lesson plan, other teaching guidelines given to the teacher during training. Remember that the purpose of 
+    this feedback is to encourage teachers to improve and not to make them feel bad about not meeting all the 
+    standards set for them because it is not possible to meet all requirements in each class.
+    
+    For the audio recording, do the following:
+    1. First, create a lesson outline with concise bullet points summarizing events, activities of the lesson in the audio recording.
+    2. Then, analyze the recording based on the pedagogy guidelines and create pedagogy_metrics as given in the output JSON structure.
+    3. Then, analyze the recording based on the lesson plan and create lesson_plan_metrics as given in the output JSON structure.
+    4. Then, analyze the recording based on the teaching guidelines and teaching_guidelines_metrics as given in the output JSON structure.
     
     For the given audio recording from a grade {grade} classroom where the teacher is teaching a {subject} lesson on 
     the topic of {topic}, analyze the audio and return structured output in JSON. The structure of the JSON is given 
     below.
     
-    Curriculum: 
-    {curriculum}
+    Lesson Plan: 
+    {lesson_plan}
     
-    Pedagogy: 
+    Pedagogy Structure: 
     {pedagogy}
     
-    Training Guidelines: 
-    {training_guidelines}
+    Teaching Guidelines: 
+    {teaching_guidelines}
     
     Output JSON Structure:
     {{
-        "pedagogy_score": <percent as integer of pedagogy guidelines followed>,
-        "pedagogy_specifics": [list of strings where each is a bullet point with specific performance of the teacher on each pedagogy guideline],
-        "curriculum_coverage_score": <percent as integer of curriculum topics covered>,
-        "curriculum_specifics": [list of strings with bullet points with specific topics that were not covered in the lesson that are part of the curriculum],
-        "training_guidelines_score": <percent as integer of training guidelines followed by the teacher>,
-        "training_guidelines_specifics": [list of strings with bullet points with specific training guidelines that were not used by the teacher in the lesson],
-        "positive_aspects": [list of strings with bullet points with specific things that were done well by the teacher in the lesson with examples from the audio],
-        "areas_of_improvement": [list of strings with bullet points with specific things that could be improved by the teacher with examples from the audio],
-        "suggestions_for_next_lesson": [list of string with suggestions on what the teacher can do in the next lesson on the same topic]
+        "lesson_outline": [list of concise bullet points summarizing the events of the lesson in the audio recording],
+        "pedagogy_metrics":
+        {{
+            "is_pedagogy_structure_followed": <boolean that is true if elements of the pedagogy structure are present in the lesson - not all can be present in a single lesson>,
+            "engagement_score": <integer between 0 and 3 where 3 is the highest level of engagement of students according to "Engage" step of pedagogy guidelines>,
+            "reason_for_engagement_score": <string with concise one sentence reason for the engagement_score given>,
+            "explore_score": <integer between 0 and 3 where 3 is the highest level of exploration of students through activities according to the "Explore" step of pedagogy guidelines>,
+            "reason_for_explore_score": <string with concise one sentence reason for the explore_score given>,
+            "explain_score": <integer between 0 and 3 where 3 is the highest level of clarity for students according to the "Explain" step of pedagogy guidelines>,
+            "reason_for_explain_score": <string with concise one sentence reason for the explain_score given>,
+            "elaborate_score": <integer between 0 and 3 where 5 is the highest level of elaboration for students according to the "Elaborate" step of pedagogy guidelines>,
+            "reason_for_elaborate_score": <string with concise one sentence reason for the elaborate_score given>,
+            "evaluate_score": <integer between 0 and 3 where 5 is the highest quality of assessment for student according to the "Evaluate" step of pedagogy guidelines>,
+            "reason_for_evaluate_score": <string with concise one sentence reason for the evaluate_score given>,
+            "pedagogy_suggestions": [list of at most 2 specific suggestions where the teacher could have introduced an activity, example, question, or teaching method to improve the lesson experience for students],
+        }},
+        "lesson_plan_metrics":
+        {{
+            "list_of_topics_covered": [list topics covered by the teacher during the class in the lesson plan],
+            "list_of_all_topics": [list with number of total topics in the lesson plan],
+            "list_of_excellent_topics": [list of topics with excellent presentation by the teacher],
+            "list_of_good_topics": [list of topics with decent presentation by the teacher with some room for improvement],
+            "list_of_poor_topics": [list of topics that had poor presentation by the teacher with lots of room for improvement]
+        }},
+        "teaching_guidelines_metrics":
+        {{
+            "list_of_guidelines_exhibited": [list of guidelines exhibited by the teacher during the class],
+            "list_of_all_guidelines": [list of all guidelines recommended in the given teaching guidelines list],
+            "list_of_excellent_guidelines": [list of guidelines followed by the teacher consistently in the lesson],
+            "number_of_good_guidelines": [list of guidelines exhibited once or twice in the lesson but could be more consistently exhibited],
+            "number_of_poor_guidelines": [list of guidelines exhibited not exhibited or exhibited poorly by the teacher in the lesson],
+        }}
     }}        
     '''
 
-    curriculum_context = _get_curriculum(state=state, board=board, grade=grade, subject=subject, topic=topic),
-    pedagogy_context = _get_pedagogy(state=state, board=board),
-    training_context = _get_training_guidelines(state=state, district=district, block=block)
+    lesson_plan_context = _get_lesson_plan(state=state, board=board, grade=grade, subject=subject, topic=topic)
+    pedagogy_context = _get_pedagogy(state=state, board=board)
+    teaching_guidelines_context = _get_teaching_guidelines(state=state, district=district, block=block)
 
     prompt = template.format(grade=grade,
                              subject=subject,
                              topic=topic,
-                             curriculum=curriculum_context,
+                             lesson_plan=lesson_plan_context,
                              pedagogy=pedagogy_context,
-                             training_guidelines=training_context)
+                             teaching_guidelines=teaching_guidelines_context)
 
     return prompt
 
 
-def _get_curriculum(state: str, board: str, grade: int, subject: str, topic: str):
-    # TODO Get from database of curriculums based on grade, state, board, topic
-    return '''
-    1. What is a Sangjna?
-    2. What are examples of Sagjna?
-    3. Identify Sangja in a sentence.
-    4. Construct sentences using one or more Sangja that are given to the student.
-    '''
+def _get_lesson_plan(state: str, board: str, grade: int, subject: str, topic: str):
+    lesson_key = '-'.join([state, board, str(grade), subject, topic])
+    try:
+        with open('../data/lesson_plans.json', 'r') as c:
+            lesson_plans = json.load(c)
+            if not lesson_plans:
+                raise Exception('Key "{}" not found'.format(lesson_key))
+        description = lesson_plans.get(lesson_key, '')
+        return description
+    except Exception as e:
+        print('WARNING: Could not retrieve curriculum - {}'.format(e.__traceback__))
+        return ''
 
 
 def _get_pedagogy(state: str, board: str):
     # TODO Get from database of pedagogy guidelines per state and board
     return '''
-    The 5E's instructional model is a research-based framework designed to facilitate inquiry-based learning and promote a deeper understanding of mathematical concepts. Each phase of the model—Engage, Explore, Explain, Elaborate, and Evaluate—plays a vital role in the teaching and learning process.
+    The 5E's instructional model is a research-based framework designed to facilitate inquiry-based learning and promote a deeper understanding of concepts. Each phase of the model—Engage, Explore, Explain, Elaborate, and Evaluate—plays a vital role in the teaching and learning process.
     1. Engage: The engage phase aims to capture students' attention and generate interest in the topic. It involves activities or discussions that activate prior knowledge, stimulate curiosity, and create a connection between the students' experiences and the new concepts being taught.
     2. Explore: In the explore phase, students actively participate in hands-on activities, investigations, and experiments. They explore the mathematical concepts, make observations, ask questions, and collect data. This phase encourages students to develop critical thinking skills, engage in problem-solving, and discover patterns and relationships.
     3. Explain: The explain phase focuses on providing explanations, clarifying concepts, and developing a deeper understanding. Teachers facilitate discussions, present mathematical principles, and guide students in making connections between their observations and the underlying mathematical concepts.
@@ -68,10 +106,10 @@ def _get_pedagogy(state: str, board: str):
     '''
 
 
-def _get_training_guidelines(state: str, district: str, block: str):
-    # TODO Get from database of training guidelines
+def _get_teaching_guidelines(state: str, district: str, block: str):
+    # TODO Get from database of teaching guidelines
     return '''
-    1. Make sure to slow down and repeat important concepts so that all students understand.
-    2. Ask questions to multiple children in the class.
-    3. Give more than one example for each important concept.
+    1. Give at least two examples for each concept.
+    2. Repeat each concept at least once.
+    3. Make students answer questions on all topics.
     '''
