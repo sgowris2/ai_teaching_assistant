@@ -32,17 +32,17 @@ if __name__ == '__main__':
 
         result_file_content = {
             'prompt': prompt,
-            'predictions': {}
+            'predictions': {},
+            'metrics': {}
         }
         result = model.generate_content(prompt)
         result_dict = json.loads(result.text)
         result_file_content['predictions'] = result_dict
-        pprint('\n{}\n'.format(result_dict))
+        stats = get_dashboard_metrics(result_file_content)
+        result_file_content['metrics'] = stats
         with open(output_filepath, 'w') as f:
             json.dump(result_file_content, f)
-
-        stats = get_dashboard_metrics(output_filepath)
-        pprint(stats)
+        pprint('\n{}\n'.format(result_dict))
 
     except Exception as e:
         print('****************\nException:\n{}\n***************\n'.format(e, e.__traceback__))

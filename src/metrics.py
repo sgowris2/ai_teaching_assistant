@@ -1,12 +1,16 @@
 import json
 from pprint import pprint
+from typing import Union
 import matplotlib.pyplot as plt
 
 
-def get_dashboard_metrics(result_filepath: str):
+def get_dashboard_metrics(result_filepath_or_dict: Union[str, dict]):
 
-    with open(result_filepath, 'r') as f:
-        results = json.load(f)['predictions']
+    if isinstance(result_filepath_or_dict, str):
+        with open(result_filepath_or_dict, 'r') as f:
+            results = json.load(f)['predictions']
+    else:
+        results = result_filepath_or_dict['predictions']
 
     pedagogy_score, pedagogy_strengths, pedagogy_areas_of_improvement \
         = _calculate_pedagogy_score(results['pedagogy_metrics'])
