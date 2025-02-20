@@ -31,8 +31,11 @@ def upload_file(filepath: str):
     uploaded_filenames = [x.display_name for x in uploaded_files]
     name = os.path.basename(filepath).replace('.mp3', '')
     if name not in uploaded_filenames:
-        genai.upload_file(filepath, name=name, display_name=name)
+        uploaded_file = genai.upload_file(filepath, name=name, display_name=name)
         print('Uploaded File: {}'.format(name))
+        return uploaded_file
+    else:
+        return [x for x in uploaded_files if x.display_name == name][0]
 
 
 def upload_all_files(directory='../data'):

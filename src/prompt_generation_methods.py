@@ -3,68 +3,68 @@ import json
 
 def create_analysis_prompt(grade: int, subject: str, topic: str, state: str, board: str, district: str, block: str):
 
-    template = '''
-    You are a teacher's helpful assistant that listens to a teacher delivering a lesson to a classroom through an audio 
-    recording and gives helpful suggestions of how the teacher has performed in the lesson based on the requirements of 
-    pedagogy, lesson plan, other teaching guidelines given to the teacher during training. Remember that the purpose of 
-    this feedback is to encourage teachers to improve and not to make them feel bad about not meeting all the 
-    standards set for them because it is not possible to meet all requirements in each class.
-    
-    For the audio recording, do the following:
-    1. First, create a lesson outline with concise bullet points summarizing events, activities of the lesson in the audio recording.
-    2. Then, analyze the recording based on the pedagogy guidelines and create pedagogy_metrics as given in the output JSON structure.
-    3. Then, analyze the recording based on the lesson plan and create lesson_plan_metrics as given in the output JSON structure.
-    4. Then, analyze the recording based on the teaching guidelines and teaching_guidelines_metrics as given in the output JSON structure.
-    
-    For the given audio recording from a grade {grade} classroom where the teacher is teaching a {subject} lesson on 
-    the topic of {topic}, analyze the audio and return structured output in JSON. The structure of the JSON is given 
-    below.
-    
-    Lesson Plan: 
-    {lesson_plan}
-    
-    Pedagogy Structure: 
-    {pedagogy}
-    
-    Teaching Guidelines: 
-    {teaching_guidelines}
-    
-    Output JSON Structure:
+    template = \
+'''
+You are a teacher's helpful assistant that listens to a teacher delivering a lesson to a classroom through an audio 
+recording and gives helpful suggestions of how the teacher has performed in the lesson based on the requirements of 
+pedagogy, lesson plan, other teaching guidelines given to the teacher during training. Remember that the purpose of 
+this feedback is to encourage teachers to improve and not to make them feel bad about not meeting all the 
+standards set for them because it is not possible to meet all requirements in each class.
+
+For the audio recording, do the following:
+1. First, create a lesson outline with concise bullet points summarizing events, activities of the lesson in the audio recording.
+2. Then, analyze the recording based on the pedagogy guidelines and create pedagogy_metrics as given in the output JSON structure.
+3. Then, analyze the recording based on the lesson plan and create lesson_plan_metrics as given in the output JSON structure.
+4. Then, analyze the recording based on the teaching guidelines and teaching_guidelines_metrics as given in the output JSON structure.
+
+For the given audio recording and transcript of the audio recording from a grade {grade} classroom where the teacher 
+is teaching a {subject} lesson on the topic of {topic}, analyze the audio and return structured output in JSON. 
+
+Lesson Plan: 
+{lesson_plan}
+
+Pedagogy Structure: 
+{pedagogy}
+
+Teaching Guidelines: 
+{teaching_guidelines}
+
+Output JSON Structure:
+{{
+    "lesson_outline": [list of concise bullet points summarizing the events of the lesson in the audio recording],
+    "pedagogy_metrics":
     {{
-        "lesson_outline": [list of concise bullet points summarizing the events of the lesson in the audio recording],
-        "pedagogy_metrics":
-        {{
-            "is_pedagogy_structure_followed": <boolean that is true if elements of the pedagogy structure are present in the lesson - not all can be present in a single lesson>,
-            "engagement_score": <integer between 0 and 3 where 3 is the highest level of engagement of students according to "Engage" step of pedagogy guidelines>,
-            "reason_for_engagement_score": <string with concise one sentence reason for the engagement_score given>,
-            "explore_score": <integer between 0 and 3 where 3 is the highest level of exploration of students through activities according to the "Explore" step of pedagogy guidelines>,
-            "reason_for_explore_score": <string with concise one sentence reason for the explore_score given>,
-            "explain_score": <integer between 0 and 3 where 3 is the highest level of clarity for students according to the "Explain" step of pedagogy guidelines>,
-            "reason_for_explain_score": <string with concise one sentence reason for the explain_score given>,
-            "elaborate_score": <integer between 0 and 3 where 5 is the highest level of elaboration for students according to the "Elaborate" step of pedagogy guidelines>,
-            "reason_for_elaborate_score": <string with concise one sentence reason for the elaborate_score given>,
-            "evaluate_score": <integer between 0 and 3 where 5 is the highest quality of assessment for student according to the "Evaluate" step of pedagogy guidelines>,
-            "reason_for_evaluate_score": <string with concise one sentence reason for the evaluate_score given>,
-            "pedagogy_suggestions": [list of at most 2 specific suggestions where the teacher could have introduced an activity, example, question, or teaching method to improve the lesson experience for students],
-        }},
-        "lesson_plan_metrics":
-        {{
-            "list_of_topics_covered": [list topics covered by the teacher during the class in the lesson plan],
-            "list_of_all_topics": [list with number of total topics in the lesson plan],
-            "list_of_excellent_topics": [list of topics with excellent presentation by the teacher],
-            "list_of_good_topics": [list of topics with decent presentation by the teacher with some room for improvement],
-            "list_of_poor_topics": [list of topics that had poor presentation by the teacher with lots of room for improvement]
-        }},
-        "teaching_guidelines_metrics":
-        {{
-            "list_of_guidelines_exhibited": [list of guidelines exhibited by the teacher during the class],
-            "list_of_all_guidelines": [list of all guidelines recommended in the given teaching guidelines list],
-            "list_of_excellent_guidelines": [list of guidelines followed by the teacher consistently in the lesson],
-            "list_of_good_guidelines": [list of guidelines exhibited once or twice in the lesson but could be more consistently exhibited],
-            "list_of_poor_guidelines": [list of guidelines exhibited not exhibited or exhibited poorly by the teacher in the lesson],
-        }}
-    }}        
-    '''
+        "is_pedagogy_structure_followed": <boolean that is true if elements of the pedagogy structure are present in the lesson - not all can be present in a single lesson>,
+        "engagement_score": <integer between 0 and 3 where 3 is the highest level of engagement of students according to "Engage" step of pedagogy guidelines>,
+        "reason_for_engagement_score": <string with concise one sentence reason for the engagement_score given>,
+        "explore_score": <integer between 0 and 3 where 3 is the highest level of exploration of students through activities according to the "Explore" step of pedagogy guidelines>,
+        "reason_for_explore_score": <string with concise one sentence reason for the explore_score given>,
+        "explain_score": <integer between 0 and 3 where 3 is the highest level of clarity for students according to the "Explain" step of pedagogy guidelines>,
+        "reason_for_explain_score": <string with concise one sentence reason for the explain_score given>,
+        "elaborate_score": <integer between 0 and 3 where 5 is the highest level of elaboration for students according to the "Elaborate" step of pedagogy guidelines>,
+        "reason_for_elaborate_score": <string with concise one sentence reason for the elaborate_score given>,
+        "evaluate_score": <integer between 0 and 3 where 5 is the highest quality of assessment for student according to the "Evaluate" step of pedagogy guidelines>,
+        "reason_for_evaluate_score": <string with concise one sentence reason for the evaluate_score given>,
+        "pedagogy_suggestions": [list of at most 2 specific suggestions where the teacher could have introduced an activity, example, question, or teaching method to improve the lesson experience for students],
+    }},
+    "lesson_plan_metrics":
+    {{
+        "list_of_topics_covered": [list topics covered by the teacher during the class in the lesson plan],
+        "list_of_all_topics": [list with number of total topics in the lesson plan],
+        "list_of_excellent_topics": [list of topics with excellent presentation by the teacher],
+        "list_of_good_topics": [list of topics with decent presentation by the teacher with some room for improvement],
+        "list_of_poor_topics": [list of topics that had poor presentation by the teacher with lots of room for improvement]
+    }},
+    "teaching_guidelines_metrics":
+    {{
+        "list_of_guidelines_exhibited": [list of guidelines exhibited by the teacher during the class],
+        "list_of_all_guidelines": [list of all guidelines recommended in the given teaching guidelines list],
+        "list_of_excellent_guidelines": [list of guidelines followed by the teacher consistently in the lesson],
+        "list_of_good_guidelines": [list of guidelines exhibited once or twice in the lesson but could be more consistently exhibited],
+        "list_of_poor_guidelines": [list of guidelines exhibited not exhibited or exhibited poorly by the teacher in the lesson],
+    }}
+}}        
+'''
 
     lesson_plan_context = _get_lesson_plan(state=state, board=board, grade=grade, subject=subject, topic=topic)
     pedagogy_context = _get_pedagogy(state=state, board=board)
@@ -84,8 +84,9 @@ def create_postprocessing_prompt(result_dict: dict):
     template = '''
     1. Take the following Analysis_JSON below that is structured output of an audio analysis of classroom teaching for a 
     teacher's lesson, and extract no more than 2 actionable suggestions for the teacher. 
-    2. Make sure that the suggestions are made after considering all the points made in the analysis JSON.
-    3. Be very specific with the suggestion. For example, if there is a suggestion to add more examples in the lesson, 
+    2. Make sure that the suggestions are made after considering all the points made in the analysis JSON around what were the areas of improvement for the teacher given in the analysis.
+    3. Try to see what would have been the highest impact suggestion to improve the students' understanding.
+    4. Be very specific with the suggestion. For example, if there is a suggestion to add more examples in the lesson, 
     provide an actual example that can be immediately used. Or if there is a suggestion to ask a question during the 
     lesson, then give an example of that question.
     4. Return the output in a structured JSON like this:
@@ -93,6 +94,7 @@ def create_postprocessing_prompt(result_dict: dict):
         "suggestions": [
             {{
                 "title": <suggestion title that is no more than 6-10 words long>,
+                "pedagogy_step": <string that is one of the pedagogy steps 'engage', 'explore', 'explain', 'elaborate', 'evaluate' that the suggestion belongs to>
                 "description": <suggestion detail that is no more than 500 characters long>
             }}
         ]

@@ -10,7 +10,7 @@ def get_dashboard_metrics(result_filepath_or_dict: Union[str, dict]):
         with open(result_filepath_or_dict, 'r') as f:
             results = json.load(f)['predictions']
     else:
-        results = result_filepath_or_dict['predictions']
+        results = result_filepath_or_dict
 
     pedagogy_score, pedagogy_strengths, pedagogy_areas_of_improvement \
         = _calculate_pedagogy_score(results['pedagogy_metrics'])
@@ -41,6 +41,8 @@ def get_dashboard_metrics(result_filepath_or_dict: Union[str, dict]):
 
 def _calculate_pedagogy_score(metrics: dict):
 
+    pedagogy_steps = ['engage', 'explore', 'explain', 'elaborate', 'evaluate']
+
     engagement_score = metrics['engagement_score']
     explore_score = metrics['explore_score']
     explain_score = metrics['explain_score']
@@ -51,8 +53,10 @@ def _calculate_pedagogy_score(metrics: dict):
 
     overall_score = 40 + sum(all_scores) * 4
 
-    strengths = [i for i, j in enumerate(all_scores) if j >= 2]
-    improvement_areas = [i for i, j in enumerate(all_scores) if j < 1]
+    strengths_indices = [i for i, j in enumerate(all_scores) if j >= 2]
+    strengths = [pedagogy_steps[x] for x in strengths_indices]
+    improvement_areas_indices = [i for i, j in enumerate(all_scores) if j < 1]
+    improvement_areas = [pedagogy_steps[x] for x in improvement_areas_indices]
 
     return overall_score, strengths, improvement_areas
 
