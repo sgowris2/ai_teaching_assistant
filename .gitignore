@@ -1,5 +1,6 @@
 # Custom files
 secret.yaml
+exp_notebook.ipynb
 data/*
 *.wav
 output/*
