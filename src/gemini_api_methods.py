@@ -1,7 +1,10 @@
 import os
+import sys
 
 import yaml
 from google import generativeai as genai
+
+sys.path.append("secret.yaml")
 
 
 def initialize_model(name='gemini-1.5-pro',
@@ -11,6 +14,7 @@ def initialize_model(name='gemini-1.5-pro',
                      max_output_tokens=8192,
                      response_mime_type='application/json'):
     with open('../secret.yaml', 'r') as secret_file:
+
         secrets = yaml.load(secret_file, Loader=yaml.SafeLoader)
         gemini_api_key = secrets['GEMINI_API_KEY']
     genai.configure(api_key=gemini_api_key)

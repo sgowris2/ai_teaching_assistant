@@ -103,17 +103,17 @@ class content_prompt:
         There should be variety of questions including word problem , conceptual questions, simple problems etc.
         Keep all examples in indian context assuming rural India with limited access of tools & technology.
 
-        .add answers at the end of worksheet for every question. Generate HTML content to render the worksheet in nice
-        formatted manner on webpage
+        .add answers at the end of worksheet for every question and strictly follow the output_json_format provided below.
+
 
         output_format_json:
         {{
-        multiple_choice: [{{"question1": <>: "options":<>}}],
-        word_problem: [{{"question6": <>: "options":<>}}],
-        fill_in_the_blanks: [{{"question11": <>}}],
-        true_false: [{{"question16": <>}}]
+        multiple_choice: [{{"question1": "generated question without options: "options": ["option1", "option2", "option3", "option4"]}}],
+        word_problems: [{{"question6": "word problem"}}],
+        fill_in_the_blanks: [{{"question11": "fill in the blanks question}}],
+        true_false: [{{"question16": "true/false statement"}}]
 
-        answers: [{{"question1": <>}}]
+        answers: [{{"question1": "answer"}}]
         
         }}
 
@@ -125,12 +125,43 @@ class content_prompt:
                                  language = self.language
                                  )
         return prompt
+    
+    def create_activity_prompt(self):
+
+        template = '''
+
+        You are a classroom activity generator, who generates an interesting calssroom activity given class, subject,
+        topic and language considering it is for schools in rural india with limited access to technology and fancy activity items.
+        
+        Generate one classroom activity  for grade {grade} for {subject} on 
+        {topic} in {language} language. 
+
+        Keep the outputs strictly as below output_format_json format
+
+        output_format_json:
+        {{
+        "activity_name" : "A short name",
+        "material_needed" : "list materials required keeping rural india in consideration"
+        "description" "activity details"
+        
+        }}   
+        
+        '''
+
+        prompt = template.format(
+                                 grade = self.grade,
+                                 subject = self.subject,
+                                 topic = self.topic,
+                                 language = self.language
+                                 )
+        
+        return prompt
             
     
 if __name__ == "__main__":
     cp = content_prompt( grade=4, subject="mathematics", topic="Like Fraction Addition")
     #prompt = cp.create_lesson_plan_prompt(class_duration=30)
-    prompt = cp.create_quiz_prompt(quiz_questions_numbers=10)
+    prompt = cp.create_activity_prompt()
     print(prompt)
 
 

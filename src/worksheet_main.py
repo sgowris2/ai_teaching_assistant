@@ -27,9 +27,14 @@ if __name__ == "__main__":
         }
         result = model.generate_content(prompt)
         result_dict = json.loads(result.text)
-        results.append(result_dict)
+
+        html_conversion_prompt = "convert given dict to HTML code for web rendering. dict:{}".format(result_dict)
+        html_result = model.generate_content(html_conversion_prompt)
+        html_result_dict = json.loads(html_result.text)
+        results.append(html_result_dict)
+
         result_file_content['predictions'] = results
-        print('\n{}\n'.format(result_dict))
+        print('\n{}\n'.format(html_result_dict))
         with open(output_filepath, 'w') as f:
             json.dump(result_file_content, f)
     except Exception as e:
