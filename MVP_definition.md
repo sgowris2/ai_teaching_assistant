@@ -25,14 +25,27 @@
 
 2. Pre-lesson:
 	- Generate lesson plan (enriched teacher notes)
+		- View popular lesson plans from other teachers.
+		- Generate a new plan based on all data available in database + creativity.
 		- View plan on a small mobile device easily.
-		- Listen to the lesson plan instead of read through it.
+		- Listen to the lesson plan instead of reading it.
 		- Add / remove / edit steps of the lesson plan as needed.
 		- Save a modified lesson plan.
 		- Like a lesson plan.
 		- Dislike a lesson plan and re-generate.
 		- Create lesson plan from scratch.
+		- Generate Interactive Activity as part of the lesson plan.
+			- View popular activities from other teachers.
+			- Generate new activity based on data available in database + creativity.
+			- View activity on small mobile devices easily in steps.
+			- Listen to the activity instead of reading it.
+			- Add / edit / remove steps of the activity.
+			- Like / dislike activity. 
+			- Regenerate a new activity using a prompt.
 	- Generate Quiz / HW assignment
+		- View popular quizzes from other teachers.
+		- Generate quiz using questions from the question bank only.
+		- Generate new quiz with new questions.
 		- View quiz on small mobile devices easily.
 		- Add / remove questions in the quiz.
 		- Save a modified quiz.
@@ -42,8 +55,17 @@
 		- Use prompt to generate question on a specific topic.
 
 3. During Lesson:
-	- ...
+	- Record lesson.
+	- Real-time tracking of lesson plan completion and status shown to teacher.
+	- Access lesson plan and questions.
+	- Generate new questions.
 
 4. Post-lesson:
-	- ...
-
+	- Listen to lesson again.
+	- View detailed report of the lesson.
+		- Show topics covered, topics not covered. Teacher can manually update if any mistake.
+		- Mark uncovered topics as "to be covered in next lesson".
+		- Generate HW assignment.
+			- Same options as pre-lesson quiz generation.
+	- Share lesson report with others through link.
+	- Delete lesson recording and report (if school allows this policy)
