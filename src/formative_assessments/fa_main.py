@@ -1,7 +1,4 @@
 import json
-from datetime import datetime
-from pprint import pprint
-import os
 import cv2
 
 from gemini_api_methods import initialize_model, upload_file
@@ -9,19 +6,19 @@ from gemini_api_methods import initialize_model, upload_file
 def get_metadata_from_qr(image_filepath):
 
     image = cv2.imread(image_filepath)
+    image = image[0:image.shape[0]//2, image.shape[1]//2: image.shape[1]]
     detector = cv2.QRCodeDetector()
     data, vertices_array, binary_qrcode = detector.detectAndDecode(image)
     if vertices_array is not None:
-        print("QRCode data:")
         print(data)
     else:
-        print("There was some error")
+        print("ERROR: Could not find a QR code in the image")
     metadata = json.loads(data)
     return metadata
 
 if __name__ == '__main__':
 
-    worksheet_filename = 'g3_maths_5.jpeg'
+    worksheet_filename = 'g3_maths_1.jpeg'
 
     #######################################################################################
     # System code below this #
@@ -89,7 +86,8 @@ if __name__ == '__main__':
         total = len(result_dict['answers'])
 
         print('\nScore: {score}%\n\nAnswers:'.format(score=round(100*student_score/total)))
-        pprint(result_dict)
+        print(json.dumps(result_dict))
+
 
     except Exception as e:
         print('****************\nException:\n{}\n***************\n'.format(e, e.__traceback__))
