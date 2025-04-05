@@ -4,8 +4,8 @@ from pprint import pprint
 import os
 
 from gemini_api_methods import initialize_model, upload_file
-from metrics import get_dashboard_metrics
-from prompt_generation_methods import create_analysis_prompt, create_postprocessing_prompt
+from class_recording.metrics import get_dashboard_metrics
+from class_recording.prompt_generation_methods import create_analysis_prompt, create_postprocessing_prompt
 
 if __name__ == '__main__':
 

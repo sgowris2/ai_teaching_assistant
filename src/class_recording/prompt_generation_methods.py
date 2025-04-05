@@ -108,7 +108,7 @@ def create_postprocessing_prompt(result_dict: dict):
 def _get_lesson_plan(state: str, board: str, grade: int, subject: str, topic: str):
     lesson_key = '-'.join([state, board, str(grade), subject, topic])
     try:
-        with open('../data/lesson_plans.json', 'r') as c:
+        with open('../../data/class_recording/lesson_plans.json', 'r') as c:
             lesson_plans = json.load(c)
             if not lesson_plans:
                 raise Exception('No lesson plans found')

@@ -29,7 +29,7 @@ def initialize_model(name='gemini-1.5-pro',
 def upload_file(filepath: str):
     uploaded_files = list(genai.list_files())
     uploaded_filenames = [x.display_name for x in uploaded_files]
-    name = os.path.basename(filepath).replace('.mp3', '')
+    name = os.path.basename(filepath).split('.')[0].replace('_', '').replace('-', '')
     if name not in uploaded_filenames:
         uploaded_file = genai.upload_file(filepath, name=name, display_name=name)
         print('Uploaded File: {}'.format(name))
