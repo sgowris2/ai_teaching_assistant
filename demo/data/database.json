@@ -1,0 +1,42 @@
+{
+  "schools": [
+    {
+      "id": 1,
+      "name": "Anekal Primary School, Bengaluru Rural, Karnataka",
+      "teachers": [
+        {
+          "id": 1,
+          "name": "Ms. Meenakshi"
+        }
+      ],
+      "classes": [
+        {
+          "id": 1,
+          "name": "3A",
+          "students": [
+            {
+              "id": 1,
+              "name": "Bintu B"
+            },
+            {
+              "id": 2,
+              "name": "Chintu C"
+            },
+            {
+              "id": 3,
+              "name": "Dintu D"
+            },
+            {
+              "id": 4,
+              "name": "Jintu J"
+            },
+            {
+              "id": 5,
+              "name": "Pintu P"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

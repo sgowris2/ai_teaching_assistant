@@ -35,7 +35,10 @@ def upload_file(filepath: str):
         print('Uploaded File: {}'.format(name))
         return uploaded_file
     else:
-        return [x for x in uploaded_files if x.display_name == name][0]
+        genai.delete_file(name=name)
+        uploaded_file = genai.upload_file(filepath, name=name, display_name=name)
+        print('Uploaded File: {}'.format(name))
+        return uploaded_file
 
 
 def upload_all_files(directory='../data'):

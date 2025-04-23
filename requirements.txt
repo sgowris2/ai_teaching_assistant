@@ -4,3 +4,4 @@ pandas
 pyyaml
 google-generativeai
 opencv-python
+flask

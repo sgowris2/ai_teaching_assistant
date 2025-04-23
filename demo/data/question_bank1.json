@@ -1,0 +1,123 @@
+{
+  "questions": [
+    {
+      "ques_format": "fill_in_the_blank",
+      "question_text": "A ______ of a number divides the number completely without leaving a remainder.",
+      "answer": "factor",
+      "answer_explanation": "A factor divides a number completely. For example, 2 is a factor of 6 because 6 divided by 2 is 3 with no remainder.",
+      "difficulty_level": "basic",
+      "learning_objectives_tested": [
+        "Understand what factors and multiples are and their difference."
+      ]
+    },
+    {
+      "ques_format": "fill_in_the_blank",
+      "question_text": "A ______ of a number is obtained by multiplying the number by any whole number.",
+      "answer": "multiple",
+      "answer_explanation": "A multiple is the result of multiplying a number by a whole number. For example, 12 is a multiple of 3 because 3 multiplied by 4 is 12.",
+      "difficulty_level": "basic",
+      "learning_objectives_tested": [
+        "Understand what factors and multiples are and their difference."
+      ]
+    },
+    {
+      "ques_format": "numerical_problem",
+      "question_text": "List the first five multiples of 4.",
+      "answer": "4, 8, 12, 16, 20",
+      "answer_explanation": "The first five multiples of 4 are obtained by multiplying 4 by 1, 2, 3, 4, and 5 respectively.",
+      "difficulty_level": "basic",
+      "learning_objectives_tested": [
+        "Be able to find multiples of numbers up to 10."
+      ]
+    },
+    {
+      "ques_format": "numerical_problem_in_words",
+      "question_text": "What are the first three multiples of the number 7?",
+      "answer": "7, 14, 21",
+      "answer_explanation": "The first three multiples of 7 are obtained by multiplying 7 by 1, 2, and 3 respectively.",
+      "difficulty_level": "basic",
+      "learning_objectives_tested": [
+        "Be able to find multiples of numbers up to 10."
+      ]
+    },
+    {
+      "ques_format": "multiple_choice_question",
+      "question_text": "Which of the following numbers is a multiple of both 2 and 3?",
+      "options": [
+        {
+          "serial": "A",
+          "option_text": "5"
+        },
+        {
+          "serial": "B",
+          "option_text": "6"
+        },
+        {
+          "serial": "C",
+          "option_text": "7"
+        },
+        {
+          "serial": "D",
+          "option_text": "8"
+        }
+      ],
+      "answer": "B",
+      "answer_explanation": "6 is a multiple of both 2 (2 x 3 = 6) and 3 (3 x 2 = 6).",
+      "difficulty_level": "intermediate",
+      "learning_objectives_tested": [
+        "Be able to find multiples of numbers up to 10.",
+        "Be able to identify common multiples of two single digit numbers."
+      ]
+    },
+    {
+      "ques_format": "true_false",
+      "question_text": "15 is a multiple of 5 and a factor of 3.",
+      "answer": "false",
+      "answer_explanation": "15 is a multiple of 5 (5 x 3 = 15), but 3 is a factor of 15, not the other way around.",
+      "difficulty_level": "intermediate",
+      "learning_objectives_tested": [
+        "Understand what factors and multiples are and their difference.",
+        "Be able to find multiples of numbers up to 10."
+      ]
+    },
+    {
+      "ques_format": "multiple_choice_question",
+      "question_text": "Which number is a common multiple of 3 and 4?",
+      "options": [
+        {
+          "serial": "A",
+          "option_text": "7"
+        },
+        {
+          "serial": "B",
+          "option_text": "9"
+        },
+        {
+          "serial": "C",
+          "option_text": "12"
+        },
+        {
+          "serial": "D",
+          "option_text": "15"
+        }
+      ],
+      "answer_explanation": "12 is a multiple of both 3 (3 x 4 = 12) and 4 (4 x 3 = 12).",
+      "difficulty_level": "intermediate",
+      "learning_objectives_tested": [
+        "Be able to find multiples of numbers up to 10.",
+        "Be able to identify common multiples of two single digit numbers."
+      ]
+    },
+    {
+      "ques_format": "numerical_problem",
+      "question_text": "Find a common multiple of 2, 3, and 5.",
+      "answer": "30",
+      "answer_explanation": "30 is a multiple of 2 (2 x 15 = 30), 3 (3 x 10 = 30), and 5 (5 x 6 = 30).",
+      "difficulty_level": "advanced",
+      "learning_objectives_tested": [
+        "Be able to find multiples of numbers up to 10.",
+        "Be able to identify common multiples of two single digit numbers."
+      ]
+    }
+  ]
+}
