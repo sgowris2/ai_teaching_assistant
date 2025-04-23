@@ -5,3 +5,4 @@ pyyaml
 google-generativeai
 opencv-python
 flask
+flask-cors
