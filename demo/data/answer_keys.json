@@ -8,36 +8,121 @@
       "subject": "maths",
       "answer_key": [
         {
-          "q": "1",
-          "a": "hundreds place - some students may write it as '100s'"
+          "format": "short_answer",
+          "q_no": "1",
+          "q_text": "Which place is the digit \"0\" in the number 4063?",
+          "a": "hundreds place - some students may write it as '100s'",
+          "difficulty_level": "basic",
+          "LOs": [
+            "Be able to identify the place value of digits in a number."
+          ]
         },
         {
-          "q": "2a",
-          "a": "24"
+          "format": "numerical",
+
+          "q_no": "2a",
+          "q_text": "18 + 6",
+          "a": "24",
+            "difficulty_level": "basic",
+            "LOs": [
+                "Sum of two 2-digit numbers with carry-over"
+            ]
         },
         {
-          "q": "2b",
-          "a": "41"
+          "format": "numerical",
+          "q_no": "2b",
+          "q_text": "23 + 18",
+          "a": "41",
+          "difficulty_level": "basic",
+          "LOs": [
+            "Sum of two 2-digit numbers with carry-over"
+          ]
         },
         {
-          "q": "2c",
-          "a": "512"
+          "format": "numerical",
+          "q_no": "2c",
+          "q_text": "256 + 256",
+          "a": "512",
+          "difficulty_level": "basic",
+          "LOs": [
+            "Sum of two 3-digit numbers with carry-over"
+          ]
         },
         {
-          "q": "3a",
-          "a": "15"
+          "format": "fill_in_the_blank",
+          "q_no": "3a",
+          "q_text": "35 + ___ = 50",
+          "a": "15",
+          "difficulty_level": "intermediate",
+          "answer_explanation": "The missing addend is the number that needs to be added to 35 to get 50. In this case, it is 15.",
+          "LOs": [
+            "Find the missing addend in a 2-digit addition problem"
+          ]
         },
         {
-          "q": "3b",
-          "a": "375"
+          "format": "fill_in_the_blank",
+          "q_no": "3b",
+          "q_text": "If 150 + 225 = 375, then 225 + 150 = ___",
+          "a": "375",
+          "answer_explanation": "Addition is commutative, meaning the order of the numbers does not matter.",
+          "difficulty_level": "basic",
+          "LOs": [
+            "Understand the commutative property of addition"
+          ]
         },
         {
-          "q": "4",
-          "a": "Option (b) is correct - Regrouping"
+          "format": "mcq",
+          "q_no": "4",
+          "q_text": "Which method is useful when adding 287 + 465 quickly? Circle the correct option.",
+            "options": [
+                {
+                "serial": "A",
+                "option_text": "Counting on fingers"
+                },
+                {
+                "serial": "B",
+                "option_text": "Regrouping"
+                },
+                {
+                "serial": "C",
+                "option_text": "Skip the ones place"
+                }
+            ],
+          "a": "Option (b) is correct - Regrouping",
+          "answer_explanation": "Regrouping is necessary when the sum of the digits in a column exceeds 9, requiring a carry to the next column.",
+          "difficulty_level": "basic",
+          "LOs": [
+              "Awareness of the concept of regrouping in addition"
+          ]
         },
         {
-          "q": "5",
-          "a": "Options (a), (b), and (c) are correct. All of them must be selected."
+          "format": "checkboxes",
+          "q_no": "5",
+          "q_text": "Circle all statements that are correct.",
+          "options": [
+        {
+          "serial": "A",
+          "option_text": "0 < 1"
+        },
+        {
+          "serial": "B",
+          "option_text": "0 > -5"
+        },
+        {
+          "serial": "C",
+          "option_text": "150 + 50 = 100 + 100"
+        },
+        {
+          "serial": "D",
+          "option_text": "100 - 200 > 0"
+        }
+      ],
+          "a": "Options (a), (b), and (c) are correct. All of them must be selected.",
+          "difficulty_level": "intermediate",
+          "LOs": [
+            "Understand the values of positive and negative numbers on the number line",
+            "Understand the concept of equality and inequalities"
+          ]
         }
       ]
     }

@@ -9,14 +9,22 @@ def get_prompt_template():
                                 "ques_no": <string that uniquely identifies the question number like 1, 2a, etc.>, 
                                 "answer": <string that shows the student's answer for that particular question exactly like it is if it is written by the student, if it is a multiple choice question, just show the options circled or ticked by the student>, 
                                 "is_correct": <bool>,
-                                "explanation": <string - if answer is wrong, give feedback on how to solve the problem and briefly explain the concept that is used to solve the problem>
+                                "explanation": <string - explain why the answer is correct or if the student's answer is wrong, give feedback on how to solve the problem and briefly explain the concept that is used to solve the problem>
                             }}, 
                             {{..}}
                         ]
+            "focus_areas": [<list of strings - the learning objectives that the student needs to focus on based on the questions that they got wrong in the order of most basic learning objective to most advanced>],
+            "insights": <string - a summary of what the student did well, what they need to work on, and any other relevant information based on performance on the worksheet. Give actionable feedback.>
         }}
     
         Use the following answer key that is in JSON format to say whether an answer is correct or not. 
-        The field "q" refers to the question number, and the field "a" is the answer to that question. 
+        The field "q_no" refers to the question number
+        The field "q_text" refers to the question's text. 
+        The field "a" is the correct answer to that question. 
+        The field "answer_explanation" is the explanation of the answer.
+        The field "LOs" refers to the learning objectives that are being tested in that question.
+        The field "options" is the list of options for the multiple choice questions or checkboxes questions.
+        
         Here is the answer key: 
         {answer_key}
     

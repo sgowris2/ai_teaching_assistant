@@ -13,26 +13,38 @@
         {
           "id": 1,
           "name": "3A",
+          "grade": 3,
+          "section": "A",
           "students": [
             {
               "id": 1,
-              "name": "Bintu B"
+              "name": "Bintu B",
+              "grade": 3,
+              "section": "A"
             },
             {
               "id": 2,
-              "name": "Chintu C"
+              "name": "Chintu C",
+              "grade": 3,
+              "section": "A"
             },
             {
               "id": 3,
-              "name": "Dintu D"
+              "name": "Dintu D",
+              "grade": 3,
+              "section": "A"
             },
             {
               "id": 4,
-              "name": "Jintu J"
+              "name": "Jintu J",
+              "grade": 3,
+              "section": "A"
             },
             {
               "id": 5,
-              "name": "Pintu P"
+              "name": "Pintu P",
+              "grade": 3,
+              "section": "A"
             }
           ]
         }
