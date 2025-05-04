@@ -69,7 +69,6 @@ def grade_worksheet(images: list):
                     'out_of': total,
                     'percent': student_percent,
                     'answers': result_dict['answers'],
-                    'focus_areas': result_dict['focus_areas'],
                     'insights': result_dict['insights']
                 }
                 if worksheet_id not in output_dict:

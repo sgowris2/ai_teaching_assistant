@@ -27,7 +27,7 @@ def get_answer_key(worksheet_id: int, data_filepath: str):
     with open(data_filepath, 'r') as f:
         answer_keys = json.load(f)
     worksheet_info = [x for x in answer_keys['worksheets'] if x['id'] == worksheet_id][0]
-    ak = worksheet_info['answer_key']
+    ak = worksheet_info['questions']
     return ak
 
 

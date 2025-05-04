@@ -6,15 +6,25 @@ def get_prompt_template():
         {{
             "answers": [
                             {{
-                                "ques_no": <string that uniquely identifies the question number like 1, 2a, etc.>, 
+                                "ques_no": <string that uniquely identifies the question number like 1, 2a, etc.>,
+                                "formatted_question": <string - the actual text of the question and the options if it is a multi-choice question neatly formatted for display">,
                                 "answer": <string that shows the student's answer for that particular question exactly like it is if it is written by the student, if it is a multiple choice question, just show the options circled or ticked by the student>, 
                                 "is_correct": <bool>,
-                                "explanation": <string - explain why the answer is correct or if the student's answer is wrong, give feedback on how to solve the problem and briefly explain the concept that is used to solve the problem>
+                                "correct_answer": <string - correct answer to the question>,
+                                "concept_tested": <string - the concept tested by the question that is available in the answer key>,
+                                "mistake_details": 
+                                    {{ 
+                                        "type": <string that is one out of 'memory' (if it is a piece of information they are missing), or 'skill' (if it is a skill that they have not applied correctly) or 'conceptual' (if there is a fundamental misconception that needs to be corrected), or 'calculation' (if it is a minor calculation error that is not related to the fundamental concept being tested in the question)>
+                                        "misconception": <string - if the mistake is conceptual, use the information in the answer key to determine what is the most likely misconception that the student has>,
+                                        "remediation_options": [<list of strings - provide one or more ideas on how to help the student learn the information, skill, or concept>]
+                                    }}
                             }}, 
                             {{..}}
                         ]
-            "focus_areas": [<list of strings - the learning objectives that the student needs to focus on based on the questions that they got wrong in the order of most basic learning objective to most advanced>],
-            "insights": <string - a summary of what the student did well, what they need to work on, and any other relevant information based on performance on the worksheet. Give actionable feedback.>
+            "insights": {{
+                "highlights": [<list of strings - very concise phrase about things that the student did well>],
+                "focus_areas": [<list of strings - very concise phrase about concepts or skills that the student needs to improve based on his/her responses in the worksheet. If any mistakes are just errors because of not knowing a fact or piece of info, you can skip that.>],
+            }}
         }}
     
         Use the following answer key that is in JSON format to say whether an answer is correct or not. 

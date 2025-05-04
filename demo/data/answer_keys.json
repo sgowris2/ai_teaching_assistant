@@ -6,7 +6,7 @@
       "teacher_id": 1,
       "class_id": 1,
       "subject": "maths",
-      "answer_key": [
+      "questions": [
         {
           "format": "short_answer",
           "q_no": "1",
@@ -19,14 +19,13 @@
         },
         {
           "format": "numerical",
-
           "q_no": "2a",
           "q_text": "18 + 6",
           "a": "24",
-            "difficulty_level": "basic",
-            "LOs": [
-                "Sum of two 2-digit numbers with carry-over"
-            ]
+          "difficulty_level": "basic",
+          "LOs": [
+            "Sum of two 2-digit numbers with carry-over"
+          ]
         },
         {
           "format": "numerical",
@@ -74,25 +73,25 @@
           "format": "mcq",
           "q_no": "4",
           "q_text": "Which method is useful when adding 287 + 465 quickly? Circle the correct option.",
-            "options": [
-                {
-                "serial": "A",
-                "option_text": "Counting on fingers"
-                },
-                {
-                "serial": "B",
-                "option_text": "Regrouping"
-                },
-                {
-                "serial": "C",
-                "option_text": "Skip the ones place"
-                }
-            ],
+          "options": [
+            {
+              "serial": "A",
+              "option_text": "Counting on fingers"
+            },
+            {
+              "serial": "B",
+              "option_text": "Regrouping"
+            },
+            {
+              "serial": "C",
+              "option_text": "Skip the ones place"
+            }
+          ],
           "a": "Option (b) is correct - Regrouping",
           "answer_explanation": "Regrouping is necessary when the sum of the digits in a column exceeds 9, requiring a carry to the next column.",
           "difficulty_level": "basic",
           "LOs": [
-              "Awareness of the concept of regrouping in addition"
+            "Awareness of the concept of regrouping in addition"
           ]
         },
         {
@@ -100,29 +99,211 @@
           "q_no": "5",
           "q_text": "Circle all statements that are correct.",
           "options": [
-        {
-          "serial": "A",
-          "option_text": "0 < 1"
-        },
-        {
-          "serial": "B",
-          "option_text": "0 > -5"
-        },
-        {
-          "serial": "C",
-          "option_text": "150 + 50 = 100 + 100"
-        },
-        {
-          "serial": "D",
-          "option_text": "100 - 200 > 0"
-        }
-      ],
+            {
+              "serial": "A",
+              "option_text": "0 < 1"
+            },
+            {
+              "serial": "B",
+              "option_text": "0 > -5"
+            },
+            {
+              "serial": "C",
+              "option_text": "150 + 50 = 100 + 100"
+            },
+            {
+              "serial": "D",
+              "option_text": "100 - 200 > 0"
+            }
+          ],
           "a": "Options (a), (b), and (c) are correct. All of them must be selected.",
           "difficulty_level": "intermediate",
           "LOs": [
             "Understand the values of positive and negative numbers on the number line",
             "Understand the concept of equality and inequalities"
           ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "school_id": 1,
+      "teacher_id": 1,
+      "class_id": 2,
+      "subject": "science",
+      "questions": [
+        {
+          "q_no": 1,
+          "q_text": "Imagine you're designing a pendulum clock. If you increase the mass of the bob, will the clock run faster, slower, or stay the same? Explain your reasoning.",
+          "format": "short_answer",
+          "a": "The clock would run at the same speed because the time period of a pendulum does not depend on its mass.",
+          "answer_explanation": "The pendulum's time period is independent of mass due to equal acceleration from gravity for all masses.",
+          "concept": "Mass does not affect time period",
+          "common_misconceptions": [
+            "Heavier bobs swing faster",
+            "Lighter bobs are slowed down more by air"
+          ],
+          "level": "intermediate"
+        },
+        {
+          "q_no": 2,
+          "q_text": "Which of the following motions is an example of an oscillation?",
+          "format": "mcq",
+          "options": [
+            {
+              "serial": "A",
+              "option_text": "A pendulum swinging back and forth",
+              "option_misconception": ""
+            },
+            {
+              "serial": "B",
+              "option_text": "A car driving around a circular track repeatedly",
+              "option_misconception": "Confusion between oscillatory and circular motion"
+            },
+            {
+              "serial": "C",
+              "option_text": "The Earth orbiting the Sun",
+              "option_misconception": "Mistaking periodic motion for oscillation"
+            },
+            {
+              "serial": "D",
+              "option_text": "A person jogging back and forth across a field",
+              "option_misconception": "Thinking any repeated motion is an oscillation"
+            }
+          ],
+          "a": "A",
+          "answer_explanation": "Only the pendulum motion is a true oscillation as it moves back and forth about a central position.",
+          "concept": "Oscillatory motion definition",
+          "common_misconceptions": [
+            "All repeated motions are oscillations",
+            "Confusion between circular and oscillatory motion"
+          ],
+          "level": "basic"
+        },
+        {
+          "q_no": 3,
+          "q_text": "A student measures the time for 20 swings of a pendulum and divides the total time by 20. What are they trying to find, and why is this method useful?",
+          "format": "short_answer",
+          "a": "They are finding the time period of the pendulum. This method reduces errors that come from trying to time a single swing.",
+          "answer_explanation": "Averaging over multiple swings reduces the impact of timing errors and improves accuracy.",
+          "concept": "Time period calculation",
+          "common_misconceptions": [
+            "Dividing swings by time instead of time by swings",
+            "Thinking the stopwatch must start only when the pendulum is at its peak"
+          ],
+          "level": "intermediate"
+        },
+        {
+          "q_no": 4,
+          "q_text": "True or False: A heavier pendulum bob swings faster because gravity pulls it down harder.",
+          "format": "true / false",
+          "a": "False",
+          "answer_explanation": "Gravity affects all masses equally, so the time period stays the same regardless of mass.",
+          "concept": "Mass does not affect time period",
+          "common_misconceptions": [
+            "Heavier objects fall faster",
+            "Gravity’s pull makes heavier bobs move faster"
+          ],
+          "level": "basic"
+        },
+        {
+          "q_no": 5,
+          "q_text": "You increase the length of the string in your pendulum setup. What happens to the time period and why?",
+          "format": "short_answer",
+          "a": "The time period increases because the pendulum has to travel a longer path, which takes more time.",
+          "answer_explanation": "A longer string increases the arc length, causing the swing to take more time.",
+          "concept": "Length affects time period",
+          "common_misconceptions": [
+            "Longer pendulums swing faster",
+            "Heavier bob at the end needs to catch up"
+          ],
+          "level": "intermediate"
+        },
+        {
+          "q_no": 6,
+          "q_text": "Which of the following best explains why we measure multiple oscillations instead of just one?",
+          "format": "mcq",
+          "options": [
+            {
+              "serial": "A",
+              "option_text": "Because it makes the pendulum swing more accurately",
+              "option_misconception": "Belief that the pendulum itself becomes more accurate"
+            },
+            {
+              "serial": "B",
+              "option_text": "Because it helps cancel out small timing errors in measurement",
+              "option_misconception": ""
+            },
+            {
+              "serial": "C",
+              "option_text": "Because it’s more fun to watch it swing many times",
+              "option_misconception": "Misunderstanding scientific purpose behind repeated trials"
+            },
+            {
+              "serial": "D",
+              "option_text": "Because more oscillations means less gravity resistance",
+              "option_misconception": "Invented idea of 'gravity resistance' increasing over time"
+            }
+          ],
+          "a": "B",
+          "answer_explanation": "Measuring multiple swings and averaging helps reduce human timing errors.",
+          "concept": "Time period measurement method",
+          "common_misconceptions": [
+            "Multiple swings change pendulum accuracy",
+            "Gravity affects time more with more swings"
+          ],
+          "level": "basic"
+        },
+        {
+          "q_no": 7,
+          "q_text": "A student says: 'The pendulum keeps swinging forever unless something stops it.' What would you say to help them understand what actually happens?",
+          "format": "short_answer",
+          "a": "I would explain that friction and air resistance slow the pendulum down over time, so it eventually stops.",
+          "answer_explanation": "Energy is lost due to air resistance and friction, so the pendulum slows and stops eventually.",
+          "concept": "Pendulum energy and damping",
+          "common_misconceptions": [
+            "Pendulums swing forever",
+            "Forgetting energy loss due to air and friction"
+          ],
+          "level": "basic"
+        },
+        {
+          "q_no": 8,
+          "q_text": "Which of the following factors affect the time period of a pendulum? Select all that apply.",
+          "format": "checkboxes",
+          "options": [
+            {
+              "serial": "A",
+              "option_text": "Length of the string",
+              "option_misconception": ""
+            },
+            {
+              "serial": "B",
+              "option_text": "Mass of the bob",
+              "option_misconception": "Assumes heavier bobs swing faster"
+            },
+            {
+              "serial": "C",
+              "option_text": "Amplitude (for small angles)",
+              "option_misconception": "Believes wider swings always take longer"
+            },
+            {
+              "serial": "D",
+              "option_text": "Air resistance",
+              "option_misconception": "Confuses damping effect with time period itself"
+            }
+          ],
+          "a": [
+            "A"
+          ],
+          "answer_explanation": "Only the length of the string affects the time period, assuming small amplitudes and minimal air resistance.",
+          "concept": "Factors affecting time period",
+          "common_misconceptions": [
+            "Mass affects time period",
+            "Amplitude significantly changes time for small angles",
+            "Air resistance changes the formula-based time period"
+          ],
+          "level": "advanced"
         }
       ]
     }
